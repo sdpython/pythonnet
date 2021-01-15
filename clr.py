@@ -27,11 +27,18 @@ def _load_clr():
     if sys.platform == "win32":
         path = _get_netfx_path()
     else:
-        path = _get_mono_path()
+        try:
+            path = _get_mono_path()
+        except InderError:
+            # no files compiles for mono
+            path = _get_netfx_path()
 
     del sys.modules[__name__]
 
     spec = util.spec_from_file_location("clr", path)
+    if spec is None:
+        raise ImportError(
+            "Unable to impoert %r as 'clr'." % path)
     clr = util.module_from_spec(spec)
     spec.loader.exec_module(clr)
 
