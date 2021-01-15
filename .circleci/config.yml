@@ -63,7 +63,7 @@ jobs:
             . venv/bin/activate
             export DOTNET_CLI_TELEMETRY_OPTOUT=1
             python3 setup.py build_dotnet
-            python3 setup.py build_wheel
+            python3 setup.py bdist_wheel
             python3 setup.py develop
 
       - run:
