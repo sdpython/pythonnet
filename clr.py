@@ -29,7 +29,7 @@ def _load_clr():
     else:
         try:
             path = _get_mono_path()
-        except InderError:
+        except IndexError:
             # no files compiles for mono
             path = _get_netfx_path()
 
@@ -38,7 +38,7 @@ def _load_clr():
     spec = util.spec_from_file_location("clr", path)
     if spec is None:
         raise ImportError(
-            "Unable to impoert %r as 'clr'." % path)
+            "Unable to import %r as 'clr'." % path)
     clr = util.module_from_spec(spec)
     spec.loader.exec_module(clr)
 
