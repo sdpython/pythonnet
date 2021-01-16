@@ -39,12 +39,12 @@ jobs:
       - run:
           name: install mono
           command: |
-            sudo apt install gnupg ca-certificates
-            sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys D3D831EF
-            echo "deb https://download.mono-project.com/repo/debian stable-xenial main" | sudo tee /etc/apt/sources.list.d/mono-stable.list
-            sudo apt update
-            sudo apt install mono-complete mono-devel
-            mono --version
+                    sudo apt install apt-transport-https dirmngr gnupg ca-certificates
+                    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+                    echo "deb https://download.mono-project.com/repo/debian stable-stretch main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+                    sudo apt update
+                    sudo apt install mono-devel
+                    mono --version
 
       - run:
           name: Install 7z, unrar
