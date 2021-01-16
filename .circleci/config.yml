@@ -36,6 +36,16 @@ jobs:
             sudo apt-get install dotnet-runtime-5.0
 
       - run:
+          name: install dotnet
+          command: |
+            sudo apt install gnupg ca-certificates
+            sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys D3D831EF
+            echo "deb https://download.mono-project.com/repo/debian stable-xenial main" | sudo tee /etc/apt/sources.list.d/mono-stable.list
+            sudo apt update
+            sudo apt install mono-complete mono-devel
+            mono --version
+
+      - run:
           name: dotnet info
           command: |
                     dotnet --info
@@ -62,9 +72,8 @@ jobs:
           command: |
             . venv/bin/activate
             export DOTNET_CLI_TELEMETRY_OPTOUT=1
-            python3 setup.py build_dotnet
             python3 setup.py bdist_wheel
-            python3 setup.py develop
+            python3 setup.py install
 
       - run:
           name: check installation
