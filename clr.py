@@ -16,7 +16,11 @@ def _get_netfx_path():
 def _get_mono_path():
     import os, glob
 
-    paths = glob.glob(os.path.join(os.path.dirname(__file__), "pythonnet", "mono", "clr.*so"))
+    pattern = os.path.join(os.path.dirname(__file__), "pythonnet", "mono", "clr.*so")
+    paths = glob.glob(pattern)
+    if len(paths) == 0:
+        raise FileNotFoundError(
+            "Unable to find any file '*.so' with pattern %r." % pattern)
     return paths[0]
 
 
