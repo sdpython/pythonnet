@@ -27,11 +27,8 @@ def _load_clr():
     if sys.platform == "win32":
         path = _get_netfx_path()
     else:
-        try:
-            path = _get_mono_path()
-        except IndexError:
-            # no files compiles for mono
-            path = _get_netfx_path()
+        # only mono works on Windows
+        path = _get_mono_path()
 
     del sys.modules[__name__]
 
