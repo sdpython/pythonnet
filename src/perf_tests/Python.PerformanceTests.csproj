@@ -12,15 +12,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="nunit" Version="3.12.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
-    <PackageReference Include="pythonnet" Version="2.3.0" GeneratePathProperty="true">
-      <IncludeAssets>compile</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
+    <PackageReference Include="NUnit" Version="3.13.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\runtime\Python.Runtime.csproj" />
   </ItemGroup>
 
   <Target Name="GetRuntimeLibBuildOutput" BeforeTargets="Build">
@@ -29,9 +26,11 @@
     </MSBuild>
   </Target>
 
+  <!--
   <Target Name="CopyBaseline" AfterTargets="Build">
-    <Copy SourceFiles="$(Pkgpythonnet)\lib\net40\Python.Runtime.dll" DestinationFolder="$(OutDir)\baseline" />
+    <Copy SourceFiles="$(Pkgpythonnet)\lib\net47\Python.Runtime.dll" DestinationFolder="$(OutDir)\baseline" />
   </Target>
+  -->
 
   <Target Name="CopyNewBuild" AfterTargets="Build">
     <Copy SourceFiles="@(NewPythonRuntime)" DestinationFolder="$(OutDir)\new" />
